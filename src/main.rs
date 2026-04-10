@@ -137,15 +137,18 @@ impl HabitCtl {
             write!(
                 &file,
                 "# The numbers specifies how often you want to do a habit:\n"
-            );
+            )
+            .unwrap();
             write!(
                 &file,
                 "# 1 means daily, 7 means weekly, 0 means you're just tracking the habit. Some examples:\n"
-            );
+            )
+            .unwrap();
             write!(
                 &file,
                 "\n# 1 Meditated\n# 7 Cleaned the apartment\n# 0 Had a headache\n# 1 Used habitctl\n"
-            );
+            )
+            .unwrap();
 
             println!(
                 "Created {}. This file will contain your habit log.\n",
