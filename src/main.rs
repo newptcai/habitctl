@@ -22,6 +22,10 @@ use std::process;
 use std::process::Command;
 use math::round;
 
+fn today() -> NaiveDate {
+    Local::now().naive_local().date()
+}
+
 fn main() {
     let matches = app_from_crate!()
         .template("{bin} {version}\n{author}\n\n{about}\n\nUSAGE:\n    {usage}\n\nFLAGS:\n{flags}\n\nSUBCOMMANDS:\n{subcommands}")
@@ -46,7 +50,7 @@ fn main() {
     let ago: i64 = if habitctl.first_date().is_some() {
         cmp::min(
             7,
-            Local::today().naive_local()
+            today()
                 .signed_duration_since(habitctl.first_date().unwrap())
                 .num_days(),
         )
@@ -195,7 +199,7 @@ impl HabitCtl {
     }
 
     fn log(&self, filters: &Vec<&str>) {
-        let to = Local::today().naive_local();
+        let to = today();
         let from = to.checked_sub_signed(chrono::Duration::days(100)).unwrap();
 
         print!("{0: >25} ", "");
@@ -278,14 +282,14 @@ impl HabitCtl {
     }
 
     fn ask(&mut self, ago: i64) {
-        let from = Local::today().naive_local()
+        let from = today()
             .checked_sub_signed(chrono::Duration::days(ago))
             .unwrap();
 
-        let to = Local::today().naive_local();
+        let to = today();
         let log_from = to.checked_sub_signed(chrono::Duration::days(60)).unwrap();
 
-        let now = Local::today().naive_local();
+        let now = today();
 
         let mut current = from;
         while current <= now {
@@ -324,7 +328,7 @@ impl HabitCtl {
     }
 
     fn todo(&self) {
-        let entry_date = Local::today().naive_local();
+        let entry_date = today();
 
         for habit in self.get_todo(&entry_date) {
             if habit.every_days > 0 {
