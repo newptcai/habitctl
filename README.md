@@ -25,12 +25,14 @@ When you run `habitctl` for the first time, it will set up the required files:
     $ h
     Welcome to habitctl!
     
-    Created /home/seb/.habitctl/habits. This file will list your currently tracked habits.
-    Created /home/seb/.habitctl/log. This file will contain your habit log.
+    Created /home/seb/.config/habitctl/habits. This file will list your currently tracked habits.
+    Created /home/seb/.config/habitctl/log. This file will contain your habit log.
     
     You don't have any habits set up!
     Run `habitctl edith` to modify the habit list using your default $EDITOR.
     Then, run `habitctl`! Happy tracking!
+
+habitctl now stores its files in the XDG config directory, which is usually `~/.config/habitctl` or `$XDG_CONFIG_HOME/habitctl`. If you already have data in `~/.habitctl`, habitctl will move it to the XDG location on first run.
 
 Run `h edith` and change the content of the habits file, for example like this:
 
